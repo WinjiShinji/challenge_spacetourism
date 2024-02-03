@@ -1,0 +1,781 @@
+// ---- Google Font Import ---- //
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;200;300;400&family=Bellefair&display=swap');
+// ---- SASS ---- //
+// Themes
+$themeColorWhite: hsl(0,0%,100%);
+$themeColorBlack: hsl(230,35%,7%);
+$themeColorPurple: hsl(231,77%,90%);
+$themeSemiTransparent: rgba(255,255,255,0.1);
+$themeSemiGray: rgba(255,255,255,0.4);
+$glassEffectAmount: 16px;
+// Fonts
+$fontBarlow: 'Barlow Condensed', sans-serif;
+$fontBelleFair: 'Bellefair', serif;;
+
+// Mixins //
+@mixin flex($dir,$justify,$align) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: $justify;
+  align-items: $align;
+}
+@mixin font($family,$color) {
+  font-family: $family;
+  color: $color;
+}
+
+// Defaults
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+body {
+  font-weight: 400; // Font fix
+  font-family: $fontBarlow; // Default Font
+  color: $themeColorWhite; // Default Text Color
+  background-color: black; // Default Bg
+  text-wrap: balance; // Default Text Center
+  letter-spacing: 0.05rem; // Default Letter Spacing
+  min-height: 100svh;
+}
+
+// Default Typography
+h1,h2,h3,h4,h5,h6 {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: 400;
+  font-size: 1rem;
+  span {
+    color: $themeSemiGray;
+    padding: 0 1rem 0 0;
+    font-weight: bold;
+  }
+}
+img {
+  width: 100%;
+}
+
+
+// ==== Responsive Queries ==== //
+// ---- Mobile ---- //
+@media screen and (min-width: 0px) {
+  // Backgrounds //
+  .home {
+    background: url('./assets//home/background-home-mobile.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .destination {
+    background: url('./assets//destination/background-destination-mobile.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .crew {
+    background: url('./assets//crew/background-crew-mobile.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  .crew::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    backdrop-filter: blur(8px);
+  }
+  .technology {
+    background: url('./assets//technology/background-technology-mobile.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  // Nav position fix //
+  .home, .destination, .crew, .technology {
+    padding: 10svh 0 0 0;
+    min-height: 100svh;
+  }
+
+  // Responsive Defaults //
+  h1 {
+    font-size: 1rem;
+  }
+  h2 {
+    font-size: 4rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1rem;
+    color: $themeColorPurple;
+    font-weight: 300;
+    max-width: 90vw;
+  }
+
+  // ---- Nav Start ---- //
+  .nav {
+    @include flex(row,center,center);
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 1rem 0 0 0;
+    z-index: 100;
+    .nav_logo {
+      display: flex;
+      margin: 0 auto 0 1rem;
+      align-self: center;
+      justify-self: center;
+    }
+    .nav_separator {
+      display: none;
+      height: 3px;
+      width: 40%;
+      z-index: 10;
+      align-self: center;
+      margin: 0 0 0 2rem;
+      transform: translateX(2rem);
+      background-color: $themeSemiTransparent;
+    }
+
+    // Nav Menu //
+    .nav_menu_area {
+      display: none;
+      position: absolute;
+      min-height: 100svh;
+      height: 100%;
+      width: 30%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
+    .nav_menu_area.active {
+      display: block;
+    }
+    .nav_menu_btn {
+      background: none;
+      padding: 0;
+      margin: 0 1rem 0 auto;
+      height: inherit;
+      width: inherit;
+      border: none;
+      z-index: 10;
+      img {
+        display: none;
+      }
+    }
+    .nav_menu_btn:hover {
+      img {
+        cursor: pointer;
+      }
+    }
+    .nav_menu_btn img.active {
+      display: flex;
+    }
+
+    // Nav Background //
+    .nav_bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      @include flex(row,center,center);
+      display: none;
+      height: 100%;
+      width: 70%;
+      // Glass Effect //
+      backdrop-filter: blur($glassEffectAmount);
+      background-color: $themeSemiTransparent;
+      border: 1px thin black;
+      // Links //
+      .nav_menu {
+        @include flex(column,flex-start,center);
+        height: 100%;
+        width: 100%;
+        text-transform: uppercase;
+        list-style-type: none;
+        padding: 4rem 0 0 0;
+        li {
+          @include flex(row,center,center);
+          @include font($fontBarlow,$themeColorWhite);
+          height: 2rem;
+          width: inherit;
+          letter-spacing: 0.2rem;
+          a {
+            @include flex(row,flex-start,flex-start);
+            flex-grow: 1;
+            height: inherit;
+            color: $themeColorWhite;
+            text-decoration: none;
+            padding: 0 1rem;
+            border-bottom: none;
+            border-right: 3px solid transparent;
+            span {
+              padding: 0 0.50rem;
+              font-weight: bold;
+            }
+          }
+          a:hover {
+            border-bottom: none;
+            border-right: 3px solid $themeSemiGray;
+          }
+          a.active {
+            border-bottom: none;
+            border-right: 3px solid $themeColorWhite;
+          }
+        }
+      }
+    }
+    .nav_bg.active {
+      display: flex;
+      min-height: 100svh;
+    }
+  }
+
+  // ---- Home Start ---- //
+  .home {
+    @include flex(column,space-around,center);
+    .home_info {
+      text-align: center;
+      text-wrap: balance;
+      h1 {
+        @include font($fontBarlow,$themeColorPurple);
+      }
+      h2 {
+        @include font($fontBelleFair,$themeColorWhite);
+      }
+    }
+    .home_btn {
+      a {
+        @include font($fontBelleFair,$themeColorBlack);
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 3.5rem 2rem;
+        border-radius: 50%;
+        background-color: $themeColorWhite;
+      }
+      a:hover,
+      a:focus {
+        outline: 3rem solid rgba(0,0,0,0.6);
+        transition: outline 400ms ease-out;
+      }
+    }
+  }
+
+  // ---- Destination Start ---- //
+  .destination {
+    @include flex(column,space-around,center);
+    .destination_image {
+      @include flex(row,center,center);
+      padding: 2rem 4rem;
+      img {
+        max-width: 400px;
+      }
+    }
+    .destination_info {
+      @include flex(column,center,center);
+      .destination_menu {
+        @include flex(row,center,center);
+        gap: 2rem;
+        text-transform: uppercase;
+        list-style-type: none;
+        li {
+          @include font($fontBarlow,$themeColorPurple);
+          letter-spacing: 0.1rem;
+          font-weight: 300;
+          border-bottom: 3px solid transparent;
+          padding: 0 0 0.25rem 0;
+        }
+        li:hover,
+        li:focus {
+          cursor: pointer;
+          border-bottom: 3px solid $themeSemiGray;
+        }
+        li.active {
+          color: $themeColorWhite;
+          border-bottom: 3px solid $themeColorWhite;
+        }
+      }
+      h2 {
+        @include font($fontBelleFair,$themeColorWhite);
+      }
+      p {
+        text-align: center;
+        padding: 0 0 2rem 0;
+      }
+      .destination_separator {
+        height: 1px;
+        width: 90%;
+        border-radius: 50%;
+        background-color: $themeSemiTransparent;
+      }
+      .destination_stats {
+        @include flex(column,center,center);
+        padding: 1rem 0;
+        text-align: center;
+        div {
+          @include font($fontBarlow,$themeColorPurple);
+          padding: 1rem 0;
+          text-transform: uppercase;
+          font-weight: 300;
+          p {
+            @include font($fontBelleFair,$themeColorWhite);
+            padding: 0;
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  // ---- Crew Start ---- //
+  .crew {
+    @include flex(column,flex-start,center);
+    .crew_image {
+      @include flex(column,flex-end,center);
+      padding: 0 1rem;
+      margin: 1rem 0 0 0;
+      height: 400px;
+      img {
+        max-height: 400px;
+        object-fit: contain;
+        object-position: bottom;
+        border-bottom: 1px solid $themeSemiTransparent;
+      }
+    }
+    .crew_menu {
+      @include flex(row,center,center);
+      padding: 1.5rem;
+      button {
+        margin: 0 0.5rem;
+        height: 0.75rem;
+        width: 0.75rem;
+        border: none;
+        border-radius: 50%;
+        background: $themeSemiTransparent;
+      }
+      button:hover,
+      button:focus {
+        cursor: pointer;
+        background: $themeSemiGray;
+      }
+      button.active {
+        background: $themeColorWhite;
+      }
+    }
+    .crew_info {
+      text-align: center;
+      padding: 0 0 1rem 0;
+      h2, h3 {
+        letter-spacing: 0;
+      }
+      h2 {
+        @include font($fontBelleFair,$themeSemiGray);
+        font-size: 1.25rem;
+      }
+      h3 {
+        @include font($fontBelleFair,$themeColorWhite);
+        font-size: 1.75rem;
+      }
+    }
+  }
+
+  // ----Technology Start ---- //
+  .technology {
+    @include flex(column,flex-start,center);
+    .technology_image {
+      margin: 1rem 0 0 0;
+      width: 100svw;
+    }
+    .tech_menu {
+      @include flex(row,center,center);
+      padding: 1rem;
+      li {
+        @include flex(row,center,center);
+        border: 1px solid $themeSemiGray;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        margin: 0.5rem;
+      }
+      li:hover,
+      li:focus {
+        cursor: pointer;
+        border: 1px solid $themeColorWhite;
+      }
+      li.active {
+        color: $themeColorBlack;
+        background-color: $themeColorWhite;
+      }
+
+    }
+    .technology_info {
+      text-align: center;
+      text-wrap: balance;
+      h2 {
+        @include font($fontBarlow,$themeColorPurple);
+        font-size: 1rem;
+        font-weight: 300;
+      }
+      h3 {
+        @include font($fontBelleFair,$themeColorWhite);
+        font-size: 1.75rem;
+      }
+      p {
+        min-width: 100%;
+        padding: 1rem;
+      }
+    }
+  }
+}
+
+// ---- Tablet ---- // 
+@media screen and (min-width: 768px) {
+  // Backgrounds //
+  .home {
+    background: url('./assets/home/background-home-tablet.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .destination {
+    background: url('./assets//destination/background-destination-tablet.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .crew {
+    background: url('./assets//crew/background-crew-tablet.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .technology {
+    background: url('./assets//technology/background-technology-tablet.jpg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  // Nav position fix //
+  .home, .destination, .crew, .technology {
+    padding: 20svh 0 0 0;
+  }
+
+  // Responsive Defaults //
+  h1 {
+    font-size: 1rem;
+  }
+  h2 {
+    font-size: 6rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1rem;
+    color: $themeColorPurple;
+    font-weight: 300;
+    max-width: 80vw;
+  }
+
+  // ---- Nav Start ---- //
+  .nav {
+    padding: 0 0 0 0;
+    inset: initial;
+    inset-inline: 0;
+    .nav_logo {
+      padding: 0 0 0 1vw;
+      img {
+        height: 4rem;
+      }
+    }
+
+    // Nav Menu //
+    .nav_menu_area.active {
+      display: none; 
+    }
+    .nav_menu_btn {
+      display: none;
+    }
+    .nav_menu_btn img.active {
+      display: none; 
+    }
+
+    // Nav Background //
+    .nav_bg {
+      position: initial;
+      display: flex;
+      .nav_menu {
+        @include flex(row,flex-start,center);
+        padding: 0 0 0 0;
+        li {
+          height: 6rem;
+          a {
+            @include flex(row,center,center);
+            flex-grow: 0;
+            border-bottom: 3px solid transparent;
+            border-right: none;
+            span {
+              display: none;
+            }
+          }
+          a:hover {
+            border-bottom: 3px solid $themeSemiTransparent;
+            border-right: none;
+          }
+          a.active {
+            border-bottom: 3px solid $themeColorWhite;
+            border-right: none;
+          }
+        }
+      }
+    }
+    .nav_bg.active {
+      display: flex;
+      min-height: initial;
+    }
+  }
+
+  // ---- Destination Start ---- //
+  .destination {
+    h1 {
+      margin-right: auto;
+      margin-left: 2rem;
+    }
+    .destination_info {
+      .destination_stats {
+        @include flex(row,center,center);
+        div {
+          padding: 0 2rem;
+        }          
+      }
+    }
+  }
+  
+  // ---- Crew Start ---- //
+  .crew {
+    h1 {
+      margin-right: auto;
+      margin-left: 2rem;
+    }
+    .crew_container {
+      @include flex(column,space-around,center);
+      .crew_image {
+        order: 3;
+      }
+      .crew_menu {
+        order: 2;
+      }
+      .crew_info {
+        order: 1;
+        p {
+          padding: 4rem
+        }
+      }
+    }
+  }
+
+  // ---- Technology Start ---- //
+  .technology {
+    h1 {
+      margin-right: auto;
+      margin-left: 2rem;
+    }
+    .technology_info {
+      p {
+        padding: 1rem 4rem;
+      }
+    }
+  }
+}
+
+// ---- Desktop ---- //
+@media screen and (min-width: 1440px) {
+  // Backgrounds //
+  .home {
+    background: url('./assets/home/background-home-desktop.jpg');
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .destination {
+    background: url('./assets/destination/background-destination-desktop.jpg');
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .crew {
+    background: url('./assets/crew/background-crew-desktop.jpg');
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .technology {
+    background: url('./assets/technology/background-technology-desktop.jpg');
+    background-position: 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  // Nav position fix //
+  .home, .destination, .crew, .technology {
+    padding: 20svh 0 0 0;
+  }
+  // ---- Nav Start ---- //
+  .nav {
+    padding: 4rem 0 0 0;
+    align-items: center;
+    .nav_separator {
+      display: flex;
+      border-radius: 3px;
+    }
+    .nav_logo {
+      margin: 0;
+      img {
+        height: 6rem;
+        width: auto;
+      }
+    }
+
+    // Nav Background //
+    .nav_bg {
+      border-radius: 3px 0 0 3px;
+      .nav_menu {
+        li {
+          a {
+            padding: 0 0.5rem;
+            span {
+              display: inline;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ---- Home Start ---- //
+  .home {
+    @include flex(row,center,center);
+    .home_info {
+      @include flex(column,center,center);
+      width: 50%;
+      flex-grow: 1;
+    }
+    
+    .home_btn {
+      @include flex(row,center,center);
+      width: 50%;
+      flex-grow: 1;
+      a {
+        padding: 5rem 2.5rem;
+        font-size: 2rem;
+      }
+      a:hover,
+      a:focus {
+        outline: 4rem solid rgba(0,0,0,0.6);
+        transition: outline 400ms ease-out;
+      }
+    }
+  }
+
+  // ---- Destination Start ---- //
+  .destination {
+    .destination_container {
+      @include flex(row,center,center);
+      .destination_image {
+        width: 50%;
+      }
+      .destination_info {
+        width: 50%;
+        @include flex(column,center,flex-start);
+        p {
+          text-align: left;
+          padding: 0 4rem 2rem 0;
+        }
+        .destination_stats {
+          text-align: left;
+          div {
+            padding: 0 4rem 0 0;
+            p {
+              padding: 0.5rem 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ---- Crew Start ---- //
+  .crew {
+    .crew_container {
+      @include flex(row,center,center);
+      position: relative;
+      .crew_image {
+        width: 50%;
+        height: 100%;
+        img {
+          max-height: 80svh;
+        }
+      }
+      .crew_menu {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+      .crew_info {
+        width: 50%;
+        text-align: left;
+        margin: 0 2rem;
+        p {
+          padding: 1rem 1rem 1rem 0;
+          max-width: 800px;
+        }
+      }
+    }
+  }
+
+  // ---- Technology Start ---- //
+  .technology {
+    .technology_container {
+      @include flex(row,center,center);
+    }
+    .technology_image {
+      @include flex(row,flex-end,center);
+      order: 3;
+      min-width: 40%;
+      width: initial;
+      img {
+        display: block;
+        height: 600px;
+        width: auto;
+      }
+    } 
+    .tech_menu {
+      @include flex(column,center,center);
+      margin: 0 2rem;
+      li {
+        margin: 1rem;
+      }
+    }
+    .technology_info {
+      text-align: left;
+      h2 {
+        padding: 0.5rem 0;
+      }
+      p {
+        padding: 1rem 2rem 0 0;
+        text-wrap: wrap;
+      }
+    }
+  }
+}
+
